@@ -6,7 +6,6 @@ let lastAnswer = 0;
 let angleUnit = 'DEG';
 let history = [];
 
-
 const symbols = {
   '×': '*',
   '÷': '/',
