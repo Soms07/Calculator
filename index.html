@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101419" />
+  <title>Orbit Calculator</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23e7ff62'/%3E%3Cpath d='M19 14h26a5 5 0 0 1 5 5v26a5 5 0 0 1-5 5H19a5 5 0 0 1-5-5V19a5 5 0 0 1 5-5Zm5 9h16M24 34h.01M32 34h.01M40 34h.01M24 42h.01M32 42h.01M40 42h.01' fill='none' stroke='%23101419' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-lockup">
+        <div class="brand-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div>
+          <p class="eyebrow">Precision workspace</p>
+          <h1>Orbit <span>Calc</span></h1>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button
+          class="icon-button"
+          id="themeButton"
+          title="Toggle contrast"
+          aria-label="Toggle contrast"
+        >
+          ◐
+        </button>
+        <button class="avatar" title="Calculator profile" aria-label="Calculator profile">
+          OC
+        </button>
+      </div>
+    </header>
+
+    <section class="workspace">
+      <div class="calculator-panel">
+        <div class="mode-row">
+          <div class="mode-switch" role="group" aria-label="Calculator mode">
+            <button class="mode active" data-mode="scientific">Scientific</button>
+            <button class="mode" data-mode="basic">Basic</button>
+          </div>
+          <div class="angle-switch" role="group" aria-label="Angle unit">
+            <button class="angle active" data-angle="DEG">DEG</button>
+            <button class="angle" data-angle="RAD">RAD</button>
+          </div>
+        </div>
+
+        <div class="display" aria-live="polite">
+          <div class="expression" id="expression">Ready when you are</div>
+          <div class="result-row">
+            <span class="equals">=</span>
+            <output id="result">0</output>
+          </div>
+        </div>
+
+        <div class="keypad" id="keypad">
+          <div class="scientific-tools">
+            <div class="key-row" data-label="Trigonometry">
+              <button class="key function" data-value="sin(" data-scientific>sin</button>
+              <button class="key function" data-value="cos(" data-scientific>cos</button>
+              <button class="key function" data-value="tan(" data-scientific>tan</button>
+              <button class="key function" data-value="asin(" data-scientific>sin⁻¹</button>
+              <button class="key function" data-value="acos(" data-scientific>cos⁻¹</button>
+              <button class="key function" data-value="atan(" data-scientific>tan⁻¹</button>
+            </div>
+            <div class="key-row" data-label="Logs & powers">
+              <button class="key function" data-value="log(" data-scientific>log</button>
+              <button class="key function" data-value="ln(" data-scientific>ln</button>
+              <button class="key function" data-value="sqrt(" data-scientific>√</button>
+              <button class="key function" data-value="^" data-scientific>xʸ</button>
+              <button class="key function" data-value="10^" data-scientific>10ˣ</button>
+              <button class="key function" data-value="abs(" data-scientific>|x|</button>
+            </div>
+            <div class="key-row" data-label="Constants">
+              <button class="key function" data-value="π" data-scientific>π</button>
+              <button class="key function" data-value="E" data-scientific>e</button>
+              <button class="key function" data-value="!" data-scientific>n!</button>
+              <button class="key function" data-value="(" data-scientific>(</button>
+              <button class="key function" data-value=")" data-scientific>)</button>
+              <span class="key-spacer" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="number-pad">
+            <button class="key utility" data-action="clear">AC</button>
+            <button class="key utility" data-action="backspace">⌫</button>
+            <button class="key operator" data-value="%">%</button>
+            <button class="key operator" data-value="÷">÷</button>
+            <button class="key" data-value="7">7</button>
+            <button class="key" data-value="8">8</button>
+            <button class="key" data-value="9">9</button>
+            <button class="key operator" data-value="×">×</button>
+            <button class="key" data-value="4">4</button>
+            <button class="key" data-value="5">5</button>
+            <button class="key" data-value="6">6</button>
+            <button class="key operator" data-value="−">−</button>
+            <button class="key" data-value="1">1</button>
+            <button class="key" data-value="2">2</button>
+            <button class="key" data-value="3">3</button>
+            <button class="key operator" data-value="+">+</button>
+            <button class="key zero" data-value="0">0</button>
+            <button class="key" data-value=".">.</button>
+            <button class="key operator" data-value="ans">ANS</button>
+            <button class="key equals-key" data-action="calculate">=</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="history-panel">
+        <div class="history-heading">
+          <div>
+            <p class="eyebrow">Your trail</p>
+            <h2>History</h2>
+          </div>
+          <button class="clear-history" id="clearHistory" title="Clear history" aria-label="Clear history">⌫</button>
+        </div>
+        <div class="history-list" id="historyList">
+          <div class="empty-history">
+            <span class="empty-icon">∿</span>
+            <p>
+              Your calculations<br />
+              will appear here.
+            </p>
+          </div>
+        </div>
+        <div class="tip">
+          <span class="tip-mark">i</span>
+          <p>Tip: use your keyboard to move even faster.</p>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <span>Orbit Calc</span>
+      <span>Built for clear thinking</span>
+      <span class="shortcut-hint">⌨ Keyboard ready</span>
+    </footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
